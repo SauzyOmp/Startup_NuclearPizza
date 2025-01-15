@@ -3,11 +3,11 @@
 ##  ⚛️💣 Specification Deliverable
 
 
-- [ ] Proper use of Markdown
+- [x] Proper use of Markdown
 - [x] A concise and compelling elevator pitch
 - [x] Description of key features
 - [x] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 
 ### Elevator Pitch  
@@ -30,13 +30,15 @@ CSS - Application styling making the UI simple but easily undrstandable.
 React - Provides login, allows map location selection and moving around the map  
 
 Service - Backend service with endpoints for:
-    Submit friend accounts
-    retrieve friend account
-    submitting drop points  
-    retrieving drop points  
+- Submit friend accounts
+- retrieve friend account
+- submitting drop points  
+- retrieving drop points  
 
 DB/Login - Store users and drop points in database. Register and login users to link with friends.  
 
 WebSocket - As you pick drop locations your friends can see them.
+
+### Real rough Sketch
 
 ![alt text](image.png)
