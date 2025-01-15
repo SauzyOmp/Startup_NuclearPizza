@@ -38,3 +38,5 @@ Service - Backend service with endpoints for:
 DB/Login - Store users and drop points in database. Register and login users to link with friends.  
 
 WebSocket - As you pick drop locations your friends can see them.
+
+![alt text](image.png)
