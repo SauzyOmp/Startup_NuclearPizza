@@ -1,6 +1,6 @@
 # NuclearPizza
 
-## 🚀 Specification Deliverable
+##  ⚛️💣 Specification Deliverable
 
 
 - [ ] Proper use of Markdown
