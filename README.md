@@ -11,7 +11,7 @@
 
 
 
-## HTML deliverable
+## ⚡🌐 HTML deliverable
 
 For this deliverable I added the html framework of the website and added placeholders of future features
 
