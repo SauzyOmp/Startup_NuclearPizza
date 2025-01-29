@@ -10,6 +10,19 @@
 - [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 
+
+## HTML deliverable
+
+For this deliverable I added the html framework of the website and added placeholders of future features
+
+- [x] **HTML pages** - Three HTML pages allowing you to login, use the map, and see your friends
+- [x] **Links** - Every page has links to navigate to the other 2 pages for ease of use right now, eventually youll have to login to access the other 2
+- [x] **Text** - There is extensive text showing off the different bomb choices
+- [x] **Images** - Used a website to convert an image to svg? If that's not cool I dont blame you for docking me this one
+- [x] **DB/Login** - Login boxes included as well as friendslist and highest pizza count
+- [x] **WebSocket** - Displays friends scores and allows you to add friends with codes
+
+
 ### Elevator Pitch  
 
 Have you ever wanted to know how far a away a nuclear bomb needs to be dropped to perfectly cook that frozen pizza sitting in your freezer? No? Well,,, anyways. Now you get to know. Drop bombs on a map to see where you can head for those cooked pizza's and see where your friends are dropping bombs.
