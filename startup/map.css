@@ -44,6 +44,10 @@ nav menu li a:hover {
   border-radius: 5px;
 }
 
+header div {
+  margin: 10px 20px;
+}
+
 main h1 {
   font-size: 2.5rem;
   font-weight: bold;
@@ -53,50 +57,40 @@ main h1 {
   margin-left: 20px;
 }
 
-/* This general div rule applies to all divs */
-div {
+main > div {
   display: flex;
   justify-content: last baseline;
   margin: 10px 0;
   margin-left: 20px;
 }
 
-/* 
-  Override the layout for the friend-add container (the last div in main)
-  so that the button, label, and input stack vertically with spacing.
-*/
-main div:last-of-type {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 15px;
+dl {
+  margin: 20px;
 }
 
-input {
-  font-size: 16px;
-  padding: 10px;
-  width: 250px;
-  margin: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+dt {
+  font-weight: 600;
+  margin-top: 10px;
 }
 
-button {
-  font-size: 16px;
-  padding: 8px 15px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+dd {
+  margin-left: 20px;
+  margin-bottom: 10px;
 }
 
-button:hover {
-  background-color: #0056b3;
+.map-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  margin-left: 0;
+}
+
+.map-container iframe {
+  border: 0;
 }
 
 footer {
-  position: absolute;
+  position: static;
   bottom: 0;
   width: 100%;
   text-align: center;
