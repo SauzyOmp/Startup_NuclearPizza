@@ -68,6 +68,30 @@ dl {
   margin: 20px;
 }
 
+.bomb {
+  display: flex;
+  align-items: flex-start;  
+  margin: 15px 20px;
+}
+
+
+.bomb img {
+  width: 100px;       
+  height: auto;
+  margin-right: 15px;     
+  border-radius: 5px;   
+}
+
+
+.bomb dt {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.bomb dd {
+  margin: 0;
+}
+
 dt {
   font-weight: 600;
   margin-top: 10px;
