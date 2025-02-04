@@ -1,15 +1,12 @@
 # NuclearPizza
 
-##  ⚛️💣 Specification Deliverable
-
+## ⚛️💣 Specification Deliverable
 
 - [x] Proper use of Markdown
 - [x] A concise and compelling elevator pitch
 - [x] Description of key features
 - [x] Description of how you will use each technology
 - [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
-
-
 
 ## ⚡🌐 HTML deliverable
 
@@ -33,7 +30,6 @@ For this deliverable I properly styled the application into its final appearance
 - [x] **Application text content** - Consistent fonts
 - [x] **Application images** - Added images for the different bomb options
 
-
 ### Elevator Pitch  
 
 Have you ever wanted to know how far a away a nuclear bomb needs to be dropped to perfectly cook that frozen pizza sitting in your freezer? No? Well,,, anyways. Now you get to know. Drop bombs on a map to see where you can head for those cooked pizza's and see where your friends are dropping bombs.
@@ -54,6 +50,7 @@ CSS - Application styling making the UI simple but easily undrstandable.
 React - Provides login, allows map location selection and moving around the map  
 
 Service - Backend service with endpoints for:
+
 - Submit friend accounts
 - retrieve friend account
 - submitting drop points  
