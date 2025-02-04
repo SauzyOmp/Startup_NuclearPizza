@@ -22,6 +22,17 @@ For this deliverable I added the html framework of the website and added placeho
 - [x] **DB/Login** - Login boxes included as well as friendslist and highest pizza count
 - [x] **WebSocket** - Displays friends scores and allows you to add friends with codes
 
+## CSS deliverable
+
+For this deliverable I properly styled the application into its final appearance.
+
+- [x] **Header, footer, and main content body**
+- [x] **Navigation elements** - I made a navigation bar with modern buttons
+- [x] **Responsive to window resizing** - The app resizes to fit screens
+- [x] **Application elements** - Used good contrast and whitespace
+- [x] **Application text content** - Consistent fonts
+- [x] **Application images** - Added images for the different bomb options
+
 
 ### Elevator Pitch  
 
