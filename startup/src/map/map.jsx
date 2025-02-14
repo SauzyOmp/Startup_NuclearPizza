@@ -53,7 +53,7 @@ export function Map() {
           width="600" 
           height="450" 
           style={{ border: "0"}} 
-          allowFullscreen="" 
+          allowFullScreen="" 
           loading="lazy">
       </iframe>
     </div>
