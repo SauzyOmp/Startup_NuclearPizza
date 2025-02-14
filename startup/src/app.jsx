@@ -22,8 +22,12 @@ export default function App() {
                 </nav>
                 </header>
         
-                <main>App components go here</main>
-        
+                    <Routes>
+                    <Route path='/friends' element={<Friends />} />
+                    <Route path='/map' element={<Map />} />
+                    <Route path='*' element={<Login />} />
+                    </Routes>
+                            
                     <footer>
                     <p>Brandon Monson</p>
                     <a href="https://github.com/SauzyOmp/Startup_NuclearPizza" class="github-btn">GitHub</a>
@@ -32,3 +36,6 @@ export default function App() {
         </BrowserRouter>
     );
 }
+function NotFound() {
+    return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
+  }
