@@ -30,7 +30,7 @@ export default function App() {
                             
                     <footer>
                     <p>Brandon Monson</p>
-                    <a href="https://github.com/SauzyOmp/Startup_NuclearPizza" class="github-btn">GitHub</a>
+                    <a href="https://github.com/SauzyOmp/Startup_NuclearPizza" className="github-btn">GitHub</a>
                 </footer>
             </div>
         </BrowserRouter>

@@ -13,9 +13,9 @@ export function Friends() {
         </ol>          
       </div>
        <div>
-          <label for="username">Friend Code:</label> 
+          <label htmlFor="username">Friend Code:</label> 
           <input type="text" id="username" name="username" placeholder="xxx-xxx-xxx"></input>
-          <button id="myButton" onclick="changeButtonText()">Click to add friend with their code</button>
+          <button id="myButton" onClick="changeButtonText()">Click to add friend with their code</button>
         </div>
   </main>
   );
