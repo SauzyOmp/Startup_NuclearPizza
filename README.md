@@ -30,6 +30,14 @@ For this deliverable I properly styled the application into its final appearance
 - [x] **Application text content** - Consistent fonts
 - [x] **Application images** - Added images for the different bomb options
 
+##  React part 1: Routing deliverable
+
+For this deliverable I ported everyting to react.
+
+- [x] **Bundled using Vite** - Easy to install and use Vite.
+- [x] **Components** - Easy to bring the code over from HTML and CSS, but had to rework them quite a bit CSS is still a little jank.
+- [x] **Router** - Easy to creating the component routing.
+
 ### Elevator Pitch  
 
 Have you ever wanted to know how far a away a nuclear bomb needs to be dropped to perfectly cook that frozen pizza sitting in your freezer? No? Well,,, anyways. Now you get to know. Drop bombs on a map to see where you can head for those cooked pizza's and see where your friends are dropping bombs.
