@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-body {
+.body {
   font-family: 'Poppins', sans-serif;
   background-color: #1a1a1a;
   color: white;
@@ -8,47 +8,7 @@ body {
   padding: 0;
 }
 
-header h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  background-color: #222;
-  padding: 10px;
-}
-
-nav menu {
-  list-style: none;
-  display: flex;
-  justify-content: flex-start;
-  padding: 0;
-  margin: 0;
-}
-
-nav menu li {
-  margin: 0 15px;
-}
-
-nav menu li a {
-  text-decoration: none;
-  color: white;
-  font-size: 18px;
-  padding: 10px 15px;
-  background-color: #222;
-  font-weight: 400;
-  transition: background 0.3s ease;
-}
-
-nav menu li a:hover {
-  background: #555;
-  border-radius: 5px;
-}
-
-header div {
-  margin: 10px 20px;
-}
-
-main h1 {
+.main h1 {
   font-size: 2.5rem;
   font-weight: bold;
   display: flex;
@@ -57,14 +17,14 @@ main h1 {
   margin-left: 20px;
 }
 
-main > div {
+.main > div {
   display: flex;
   justify-content: last baseline;
   margin: 10px 0;
   margin-left: 20px;
 }
 
-dl {
+.dl {
   margin: 20px;
 }
 
@@ -136,27 +96,3 @@ dd {
   border: 0;
 }
 
-footer {
-  position: static;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  padding: 20px;
-  background-color: #222;
-  color: white;
-}
-
-.github-btn {
-  display: inline-block;
-  text-decoration: none;
-  color: white;
-  background-color: #333;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background 0.3s ease;
-}
-
-.github-btn:hover {
-  background-color: #555;
-}
