@@ -1,10 +1,35 @@
 import React from 'react';
-import './map.css'
+import './pizza.css'
+const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+import {createRoot} from 'react-dom/client';
 
-export function Map() {
+import {
+  APIProvider,
+  Map,
+  useMap,
+  AdvancedMarker,
+  Pin
+} from '@vis.gl/react-google-maps';
+
+const App = () => (
+  <APIProvider apiKey={googleMapsApiKey} onLoad={() => console.log('Maps API has loaded.')}>
+    <Map
+      defaultZoom={13}
+      defaultCenter={{ lat: -33.860664, lng: 151.208138 }}
+      // onCameraChanged={(ev) =>
+      //   console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
+      // }
+      mapId='da37f3254c6a6d1c'
+      >
+    <PoiMarkers pois={locations} />
+    </Map>
+  </APIProvider>
+);
+
+export function Pizza() {
   return (
     <main>
-    <h1>Map</h1>
+    <h1>Pizza</h1>
     
     <dl className="bomb-list">
       <div className="bomb">
@@ -48,7 +73,7 @@ export function Map() {
       </div>
     </dl>
   
-    <div className="map-container">
+    <div className="OHoly Glorious map of Google">
       <iframe 
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093747!2d144.95565131531803!3d-37.81732797975159!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218cee40!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1619841676947!5m2!1sen!2sus" 
           width="600" 
@@ -66,3 +91,10 @@ export function Map() {
   </main>
   );
 }
+
+export default App;
+
+const root = createRoot(document.getElementById('app'));
+root.render(
+      <App />
+  );

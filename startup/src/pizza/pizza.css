@@ -85,14 +85,3 @@ dd {
   margin-bottom: 10px;
 }
 
-.map-container {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-  margin-left: 0;
-}
-
-.map-container iframe {
-  border: 0;
-}
-

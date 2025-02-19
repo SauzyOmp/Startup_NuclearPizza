@@ -4,7 +4,7 @@ import './app.css';
 
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
-import { Map } from './map/map';
+import { Pizza } from './pizza/pizza';
 import { Friends } from './friends/friends';
 
 
@@ -17,14 +17,14 @@ export default function App() {
                 <nav>
                     <ul>
                         <li><NavLink className='nav-link' to='friends'>Friends</NavLink></li>
-                        <li><NavLink className='nav-link' to='map'>Map</NavLink></li>
+                        <li><NavLink className='nav-link' to='pizza'>Pizza</NavLink></li>
                     </ul>
                 </nav>
                 </header>
         
                     <Routes>
                     <Route path='/friends' element={<Friends />} />
-                    <Route path='/map' element={<Map />} />
+                    <Route path='/pizza' element={<Map />} />
                     <Route path='*' element={<Login />} />
                     </Routes>
                             
