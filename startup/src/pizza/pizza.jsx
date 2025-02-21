@@ -11,7 +11,7 @@ import {
   Pin
 } from '@vis.gl/react-google-maps';
 
-const App = () => (
+
   <APIProvider apiKey={googleMapsApiKey} onLoad={() => console.log('Maps API has loaded.')}>
     <Map
       defaultZoom={13}
@@ -21,10 +21,8 @@ const App = () => (
       // }
       mapId='da37f3254c6a6d1c'
       >
-    <PoiMarkers pois={locations} />
     </Map>
   </APIProvider>
-);
 
 export function Pizza() {
   return (
@@ -91,10 +89,3 @@ export function Pizza() {
   </main>
   );
 }
-
-export default App;
-
-const root = createRoot(document.getElementById('app'));
-root.render(
-      <App />
-  );
