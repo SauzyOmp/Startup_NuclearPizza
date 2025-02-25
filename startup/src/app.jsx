@@ -24,7 +24,7 @@ export default function App() {
         
                     <Routes>
                     <Route path='/friends' element={<Friends />} />
-                    <Route path='/pizza' element={<Map />} />
+                    <Route path='/pizza' element={<Pizza />} />
                     <Route path='*' element={<Login />} />
                     </Routes>
                             

@@ -30,7 +30,7 @@ For this deliverable I properly styled the application into its final appearance
 - [x] **Application text content** - Consistent fonts
 - [x] **Application images** - Added images for the different bomb options
 
-##  React part 1: Routing deliverable
+## React part 1: Routing deliverable
 
 For this deliverable I ported everyting to react.
 
