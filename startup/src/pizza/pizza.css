@@ -1,5 +1,5 @@
 
-.body {
+body {
   font-family: 'Poppins', sans-serif;
   background-color: #1a1a1a;
   color: white;
@@ -85,7 +85,7 @@ dd {
 }
 
 .map-container {
-  height: 400px;
-  width: 100%;
-  display: block; /* override the global flex rule */
+  height: 100vh;
+  width: 100vw;
+  display: block;
 }
