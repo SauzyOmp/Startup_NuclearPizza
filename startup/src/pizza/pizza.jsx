@@ -5,10 +5,7 @@ const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 import {
   APIProvider,
-  Map,
-  useMap,
-  AdvancedMarker,
-  Pin
+  Map as GoogleMap,
 } from '@vis.gl/react-google-maps';
 
 export function Pizza() {
@@ -16,17 +13,15 @@ export function Pizza() {
     <main>
       <h1>Pizza</h1>
       
-      {/* Google Map Section */}
-      <div style={{ height: '400px', width: '100%' }}>
+      <div className="map-container">
         <APIProvider 
           apiKey={googleMapsApiKey} 
           onLoad={() => console.log('Maps API has loaded.')}
         >
-          <Map
+          <GoogleMap
             defaultZoom={13}
             defaultCenter={{ lat: -33.860664, lng: 151.208138 }}
-            mapId="da37f3254c6a6d1c"
-          />
+        />
         </APIProvider>
       </div>
       
