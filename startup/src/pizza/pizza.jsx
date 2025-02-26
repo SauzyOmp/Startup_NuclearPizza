@@ -11,60 +11,59 @@ import {
 export function Pizza() {
   return (
     <main>
-      <h1>Pizza</h1>
-      
-      <div className="map-container">
-        <APIProvider apiKey={googleMapsApiKey} 
-          onLoad={() => console.log('Maps API done been')}
-        >
-          <GoogleMap
-            style={{ width: '100%', height: '100%' }}
-            defaultCenter={{lat: 22.54992, lng: 0}}
-            defaultZoom={3}
-            gestureHandling={'greedy'}
-            // disableDefaultUI={true}
-        />
-        </APIProvider>
-      </div>
       
       {/* Bomb List Content */}
       <dl className="bomb-list">
         <div className="bomb">
           <dt>Little Boy</dt>
           <dd>
-            {/* <img src="little-boy.jpg" alt="Little Boy bomb image" /> */}
+            <img src="little-boy.jpg" alt="Little Boy bomb image" />
             <p>A uranium-based bomb dropped on Hiroshima in 1945.</p>
           </dd>
         </div>
         <div className="bomb">
           <dt>Fat Man</dt>
           <dd>
-            {/* <img src="fat-man.jpg" alt="Fat Man bomb image" /> */}
+            <img src="fat-man.jpg" alt="Fat Man bomb image" />
             <p>A plutonium-based bomb dropped on Nagasaki in 1945.</p>
           </dd>
         </div>
         <div className="bomb">
           <dt>Tsar Bomba</dt>
           <dd>
-            {/* <img src="tsar-bomba.jpg" alt="Tsar Bomba bomb image" /> */}
+            <img src="tsar-bomba.jpg" alt="Tsar Bomba bomb image" />
             <p>The largest nuclear bomb ever detonated, tested by the Soviet Union in 1961.</p>
           </dd>
         </div>
         <div className="bomb">
           <dt>Castle Bravo</dt>
           <dd>
-            {/* <img src="castle-bravo.png" alt="Castle Bravo bomb image" /> */}
+            <img src="castle-bravo.png" alt="Castle Bravo bomb image" />
             <p>A powerful hydrogen bomb test by the U.S. in 1954, causing unexpected fallout.</p>
           </dd>
         </div>
         <div className="bomb">
           <dt>Ivy Mike</dt>
           <dd>
-            {/* <img src="ivy-mike.jpg" alt="Ivy Mike bomb image" /> */}
+            <img src="ivy-mike.jpg" alt="Ivy Mike bomb image" />
             <p>The first full-scale hydrogen bomb test by the U.S. in 1952.</p>
           </dd>
         </div>
       </dl>
+
+      <div className="map-container">
+        <APIProvider apiKey={googleMapsApiKey} 
+          onLoad={() => console.log('Maps API done been')}
+        >
+          <GoogleMap
+            defaultCenter={{lat: 22.54992, lng: 0}}
+            defaultZoom={3}
+            gestureHandling={'greedy'}
+            disableDefaultUI={true}
+        />
+        </APIProvider>
+      </div>
+      
       
       
       <div>

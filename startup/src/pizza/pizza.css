@@ -1,21 +1,4 @@
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #1a1a1a;
-  color: white;
-  margin: 0;
-  padding: 0;
-}
-
-.main h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  display: flex;
-  justify-content: last baseline;
-  margin-top: 20px;
-  margin-left: 20px;
-}
-
 .main > div {
   display: flex;
   justify-content: last baseline;
@@ -85,7 +68,10 @@ dd {
 }
 
 .map-container {
-  height: 100vh;
-  width: 100vw;
-  display: block;
+  height: 400px;
+  width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto
 }
