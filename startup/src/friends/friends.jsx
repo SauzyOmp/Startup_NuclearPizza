@@ -1,9 +1,9 @@
 import React from 'react';
-// import './friends.css';
+import './friends.css';
 
 export function Friends() {
   return (
-    <main>
+    <main className="friends-page">
       <h1>Friends List</h1>
       <div>
         <ol>
