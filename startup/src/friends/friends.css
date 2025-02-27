@@ -12,7 +12,8 @@ body {
   align-items: center;
   justify-content: flex-start;
   text-align: center;
-  padding-top: 50px;
+  padding: 50px 20px;
+  min-height: 60vh;
 }
 
 header h1 {
@@ -24,66 +25,111 @@ header h1 {
   padding: 10px;
 }
 
-nav menu {
-  list-style: none;
-  display: flex;
-  justify-content: flex-start;
-  padding: 0;
-  margin: 0;
-}
-
-nav menu li {
-  margin: 0 15px;
-}
-
-nav menu li a {
-  text-decoration: none;
-  color: white;
-  font-size: 18px;
-  padding: 10px 15px;
-  background-color: #222;
-  font-weight: 400;
-  transition: background 0.3s ease;
-}
-
-nav menu li a:hover {
-  background: #555;
-  border-radius: 5px;
-}
-
-main h1 {
+.friends-page h1 {
   font-size: 2.5rem;
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 0;
+  margin-bottom: 30px;
 }
 
-.friends-page div {
+.friends-list, .friends-hidden {
+  background-color: #222;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  min-width: 300px;
+  min-height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.friends-list ol {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.friends-list li {
+  padding: 10px 0;
+  font-size: 18px;
+  border-bottom: 1px solid #333;
+}
+
+.friends-list li:last-child {
+  border-bottom: none;
+}
+
+.friends-hidden p {
+  color: #888;
+  font-style: italic;
+}
+
+.friend-code-input {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px 0;
+  margin: 20px 0;
+  background-color: #222;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.friend-code-input label {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 input {
   font-size: 16px;
-  padding: 10px;
+  padding: 12px;
   width: 250px;
-  margin: 5px 0;
-  border: 1px solid #ccc;
+  margin: 10px 0;
+  border: 1px solid #333;
   border-radius: 5px;
+  background-color: #333;
+  color: white;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+input::placeholder {
+  color: #777;
 }
 
 button {
   font-size: 16px;
-  padding: 8px 15px;
+  padding: 12px 20px;
+  width: 100%;
+  max-width: 280px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  font-weight: 500;
 }
 
 button:hover {
   background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.message {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
 }

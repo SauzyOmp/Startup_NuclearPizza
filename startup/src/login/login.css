@@ -3,29 +3,56 @@
     background-color: #1a1a1a;
     color: white;
     margin: 0;
-    padding: 0;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 60vh;
+    justify-content: center;
+}
+
+.login-page h1 {
+    margin-bottom: 10px;
+    font-size: 32px;
+}
+
+.login-page h2 {
+    margin-bottom: 30px;
+    font-weight: 400;
+    color: #ccc;
 }
 
 .login-page div {
     display: flex;
     justify-content: center;
+    width: 280px;
+    margin-bottom: 15px;
 }
 
 .login-page input {
     font-size: 16px;
-    padding: 10px;
-    width: 250px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
+    padding: 12px;
+    width: 100%;
+    margin: 0;
+    border: 1px solid #333;
     border-radius: 5px;
+    background-color: #252525;
+    color: white;
+    transition: border-color 0.3s ease;
+}
+
+.login-page input::placeholder {
+    color: #888;
+}
+
+.login-page input:focus {
+    outline: none;
+    border-color: #007bff;
 }
 
 .login-page input[type="submit"] {
     font-size: 16px;
-    padding: 8px 15px; 
+    padding: 12px 15px; 
     width: auto; 
     background-color: #007bff;
     color: white;
@@ -39,3 +66,37 @@
     background-color: #0056b3; 
 }
 
+/* Adding styling for the auth buttons */
+.auth-button {
+    font-size: 16px;
+    padding: 12px 15px;
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.auth-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Create Account button styling */
+.login-page div:last-child {
+    margin-top: 10px; /* Add space between Sign In and Create Account */
+}
+
+.login-page div:last-child .auth-button {
+    background-color: #333;
+    border: 1px solid #007bff;
+}
+
+.login-page div:last-child .auth-button:hover {
+    background-color: #444;
+    border-color: #0056b3;
+}

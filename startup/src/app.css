@@ -1,157 +1,141 @@
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #1a1a1a;
-    color: white;
-}
-
+/* Ensure html and body fill the viewport */
 html, body {
-    margin: 0;
-    padding: 0;
     height: 100%;
-}
-
-/* This is important for React Router-based apps */
-#root {
-    min-height: 100vh;
+    margin: 0;
+  }
+  
+  /* Wrapper container that holds header, content, and footer */
+  .wrapper {
     display: flex;
     flex-direction: column;
-}
-
-.app-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Full viewport height */
-    flex: 1; /* Take up all available space */
-}
-
-/* Make sure BrowserRouter doesn't break the layout */
-.app-container > div {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    min-height: 100vh;  /* 100% of the viewport height */
+  }
+  
+  /* Main content area that grows to fill available space */
+  .content {
     flex: 1;
-}
-
-.main-content {
-    flex: 1; /* This makes the main content expand to fill available space */
-    display: flex;
-    flex-direction: column; /* Ensures content flows properly */
-}
-
-/* Ensure main elements take up space properly */
-main {
-    flex: 1;
+  }
+  
+  /* App container to match your JSX structure */
+  .app-container {
     display: flex;
     flex-direction: column;
-}
-
-header h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px 30px;
+  }
+  
+  /* Header - adjusted to prevent layout shifts */
+  header {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
     background-color: #222;
-    padding: 10px;
-    margin: 0; /* Added to prevent extra spacing */
-}
-
-nav ul {
-    list-style: none;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  
+  /* Completely redesigned Navigation with fixed position */
+  nav {
+    margin: 0 20px;
+    flex-grow: 1;
+  }
+  
+  nav ul {
     display: flex;
-    justify-content: flex-start; 
+    list-style: none;
     padding: 0;
     margin: 0;
-    background-color: #1a1a1a; /* Darker background for the nav bar */
-}
-
-nav ul li {
-    margin: 0 15px;
-}
-
-/* Button-style nav links with visible backgrounds */
-nav ul li a, nav ul li .nav-link {
-    display: inline-block; /* Makes it behave like a button */
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    padding: 10px 15px;
-    transition: background 0.3s ease;
-    font-weight: 400;
-    background-color: #222; /* Dark grey background for the button */
-    margin: 5px 0; /* Add some vertical spacing */
-}
-
-/* Hover effect - lighter background */
-nav ul li a:hover, nav ul li .nav-link:hover {
-    background: #555; /* Lighter grey on hover */
-}
-
-/* Active link styling */
-nav ul li a.active, nav ul li .nav-link.active {
-    background-color: #444; /* Slightly lighter than normal to indicate active state */
-}
-
-main h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-}
-
-main h2 {
-    font-size: 1.8rem;
-    font-weight: 300;
-    display: flex;
-    justify-content: center;
-}
-
-input {
-    font-size: 16px;
-    padding: 10px;
-    width: 250px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-input[type="submit"] {
-    font-size: 16px;
-    padding: 8px 15px; 
-    width: auto; 
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-input[type="submit"]:hover {
-    background-color: #0056b3; 
-}
-
-/* Important - use !important to override any other footer styles */
-footer {
-    width: 100%;
-    text-align: center;
-    background-color: #222 !important; 
-    color: white;
-    padding: 10px 0;
-    position: static !important; /* Override any absolute positioning */
-    margin-top: auto !important; /* Push footer to bottom */
-}
-
-.github-btn {
+    gap: 10px;
+  }
+  
+  nav ul li {
+    margin: 0;
+  }
+  
+  nav ul li a.nav-link {
     display: inline-block;
     text-decoration: none;
+    color: #fff;
+    background-color: #444;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    text-align: center;
+    border: 1px solid transparent;
+  }
+  
+  nav ul li a.nav-link:hover {
+    background-color: #555;
+    border-color: #777;
+  }
+  
+  nav ul li a.nav-link.active {
+    background-color: #666;
+    border-color: #888;
+  }
+  
+
+  
+
+.sign-out {
+    background-color: #ff4d4d;
     color: white;
-    background-color: #333;
+    border: none;
     padding: 10px 20px;
     border-radius: 5px;
-    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
     transition: background 0.3s ease;
-}
-
-.github-btn:hover {
-    background-color: #555; 
-}
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-left: 20px;
+    width: auto; 
+    display: inline-block; 
+    white-space: nowrap;
+  }
+  
+  .sign-out:hover {
+    background-color: #cc0000;
+  }
+  
+  /* Footer - Keep as is since you liked it */
+  footer {
+    width: 100%;
+    text-align: center;
+    background-color: #222;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+    margin-top: auto; /* Push to the bottom when content is short */
+  }
+  
+  footer p {
+    margin: 0 0 10px 0;
+  }
+  
+  .github-btn {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin-top: 5px;
+  }
+  
+  .github-btn:hover {
+    background: #444;
+    color: white;
+  }

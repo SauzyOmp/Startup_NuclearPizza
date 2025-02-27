@@ -1,7 +1,7 @@
 import React from 'react';
 import './login.css';
 
-export function Login() {
+export function Login({ onLogin }) {
   return (
     <main className="login-page">
       <h1>Welcome!</h1>
@@ -13,10 +13,10 @@ export function Login() {
         <input type="password" placeholder="Password" />
       </div>
       <div>
-        <input type="submit" value="Sign In" />
+        <button className="auth-button" onClick={onLogin}>Sign In</button>
       </div>
       <div>
-        <input type="submit" value="Create Account" />
+        <button className="auth-button" onClick={onLogin}>Create Account</button>
       </div>
     </main>
   );
