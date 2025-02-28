@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './friends.css';
 
 export function Friends() {
   const [friendsVisible, setFriendsVisible] = useState(false);
   const [friendCode, setFriendCode] = useState('');
   const [friends] = useState([
-    "ShadowNuke99",
-    "AtomicTaco77",
-    "FalloutFries420"
+    { username: "ShadowNuke99", score: 95 },
+    { username: "AtomicTaco77", score: 85 },
+    { username: "FalloutFries420", score: 90 }
   ]);
   const [message, setMessage] = useState('');
 
@@ -28,6 +28,11 @@ export function Friends() {
     }
   };
 
+  // useEffect to log whenever the friends list visibility changes and eventually to call api to grab scores from database?
+  useEffect(() => {
+    console.log(`Friends list is now ${friendsVisible ? 'visible' : 'hidden'}.`);
+  }, [friendsVisible]);
+
   return (
     <main className="friends-page">
       <h1>Friends List</h1>
@@ -36,7 +41,9 @@ export function Friends() {
         <div className="friends-list">
           <ol>
             {friends.map((friend, index) => (
-              <li key={index}>{friend}</li>
+              <li key={index}>
+                {friend.username} - Score: {friend.score}
+              </li>
             ))}
           </ol>
         </div>
