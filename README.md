@@ -42,8 +42,8 @@ For this deliverable I ported everyting to react.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] **All functionality implemented or mocked out** - All buttons now do their functionality more or less, only map functionality
-- [x] **Hooks** - Lots of useState hooks, added a useEffect hook that will eventually call database api, but basically just changes state for now
+- [x] **All functionality implemented or mocked out** - All buttons now do or mock their functionality, map functionality right now is just arbitrary circles
+- [x] **Hooks** - Lots of useState hooks, added a useEffect hook that will eventually call database api, but basically just changes state for now. Also the map uses useEffect
 
 ### Elevator Pitch  
 
