@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
@@ -8,6 +8,30 @@ import { Friends } from './friends/friends';
 
 export default function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [userName, setUserName] = useState(localStorage.getItem('username') || '');
+
+    // Check authentication status on component mount
+    useEffect(() => {
+        if (userName) {
+            setIsAuthenticated(true);
+        }
+    }, [userName]);
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('/api/auth/logout', {
+                method: 'DELETE',
+            });
+            
+            if (response.ok) {
+                localStorage.removeItem('username');
+                setIsAuthenticated(false);
+                setUserName('');
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
 
     return (
       <BrowserRouter>
@@ -21,12 +45,12 @@ export default function App() {
               </ul>
             </nav>
             {isAuthenticated && (
-              <button className="sign-out" onClick={() => setIsAuthenticated(false)}>Sign Out</button>
+              <button className="sign-out" onClick={handleLogout}>Sign Out</button>
             )}
           </header>
           <main className="main-content">
             <Routes>
-              <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
+              <Route path="/login" element={<LoginPage onLogin={() => setIsAuthenticated(true)} />} />
               {isAuthenticated ? (
                 <>
                   <Route path="/pizza" element={<Pizza />} />
@@ -34,7 +58,7 @@ export default function App() {
                   <Route path="*" element={<NotFound />} />
                 </>
               ) : (
-                <Route path="*" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
+                <Route path="*" element={<LoginPage onLogin={() => setIsAuthenticated(true)} />} />
               )}
             </Routes>
           </main>
@@ -47,11 +71,11 @@ export default function App() {
     );
 }
 
-function LoginPage({ setIsAuthenticated }) {
+function LoginPage({ onLogin }) {
     const navigate = useNavigate();
     
     const handleLogin = () => {
-        setIsAuthenticated(true);
+        onLogin();
         navigate('/pizza');
     };
     
