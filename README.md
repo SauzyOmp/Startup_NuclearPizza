@@ -45,6 +45,17 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **All functionality implemented or mocked out** - All buttons now do or mock their functionality, map functionality right now is just arbitrary circles
 - [x] **Hooks** - Lots of useState hooks, added a useEffect hook that will eventually call database api, but basically just changes state for now. Also the map uses useEffect
 
+## 🚀 Service deliverable
+
+For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+
+- [x] **Node.js/Express HTTP service** - Installed Express with NPM. Default port on 4000.js`.
+- [x] **Static middleware for frontend** - Simple endpoints in `service/index`.
+- [x] **Calls to third party endpoints** - calls to google maps api.
+- [x] **Backend service endpoints** - Simple endpoints in `service/index` for auth and friends.
+- [x] **Frontend calls service endpoints** - All mocked functionality removed from the frontend and replaced with calls to the service.
+- [x] **Supports registration, login, logout, and restricted endpoint** - Fully support authentication and restrict access to friends.
+
 ### Elevator Pitch  
 
 Have you ever wanted to know how far a away a nuclear bomb needs to be dropped to perfectly cook that frozen pizza sitting in your freezer? No? Well,,, anyways. Now you get to know. Drop bombs on a map to see where you can head for those cooked pizza's and see where your friends are dropping bombs.
