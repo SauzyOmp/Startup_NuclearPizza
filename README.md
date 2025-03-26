@@ -56,6 +56,14 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Frontend calls service endpoints** - All mocked functionality removed from the frontend and replaced with calls to the service.
 - [x] **Supports registration, login, logout, and restricted endpoint** - Fully support authentication and restrict access to friends.
 
+
+## 🚀 DB/Login deliverable
+
+For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+
+- [x] **Stores data in MongoDB** - friends stored in MongoDB from `service/database.js`.
+- [x] **Stores credentials in MongoDB** - Auth stored in MongoDB from `service/database.js`.
+
 ### Elevator Pitch  
 
 Have you ever wanted to know how far a away a nuclear bomb needs to be dropped to perfectly cook that frozen pizza sitting in your freezer? No? Well,,, anyways. Now you get to know. Drop bombs on a map to see where you can head for those cooked pizza's and see where your friends are dropping bombs.
