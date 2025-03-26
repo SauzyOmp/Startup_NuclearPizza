@@ -6,20 +6,21 @@ const client = new MongoClient(url);
 const db = client.db('NuclearPizza');
 const userCollection = db.collection('user');
 const scoreCollection = db.collection('score');
+const friendCollection = db.collection('friend');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
   try {
     await db.command({ ping: 1 });
-    console.log(`Connect to database`);
+    console.log(`Connected to database`);
   } catch (ex) {
     console.log(`Unable to connect to database with ${url} because ${ex.message}`);
     process.exit(1);
   }
 })();
 
-function getUser(email) {
-  return userCollection.findOne({ email: email });
+function getUser(username) {
+  return userCollection.findOne({ username: username });
 }
 
 function getUserByToken(token) {
@@ -31,7 +32,7 @@ async function addUser(user) {
 }
 
 async function updateUser(user) {
-  await userCollection.updateOne({ email: user.email }, { $set: user });
+  await userCollection.updateOne({ username: user.username }, { $set: user });
 }
 
 async function addScore(score) {
@@ -48,6 +49,22 @@ function getHighScores() {
   return cursor.toArray();
 }
 
+// New functions for friends functionality
+
+async function getFriends(username) {
+  const cursor = friendCollection.find({ owner: username });
+  return cursor.toArray();
+}
+
+async function addFriend(username, friend) {
+  const friendDoc = {
+    owner: username,
+    username: friend.username,
+    score: friend.score
+  };
+  return friendCollection.insertOne(friendDoc);
+}
+
 module.exports = {
   getUser,
   getUserByToken,
@@ -55,4 +72,6 @@ module.exports = {
   updateUser,
   addScore,
   getHighScores,
+  getFriends,
+  addFriend
 };
