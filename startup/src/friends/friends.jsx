@@ -6,12 +6,10 @@ export function Friends() {
   const [friendCode, setFriendCode] = useState('');
   const [friends, setFriends] = useState([]);
   const [message, setMessage] = useState('');
-  const [nuclearFact, setNuclearFact] = useState('');
 
   // Fetch friends list on component mount
   useEffect(() => {
     fetchFriends();
-    fetchNuclearFact();
   }, []);
 
   const fetchFriends = async () => {
@@ -29,18 +27,6 @@ export function Friends() {
       }
     } catch (error) {
       console.error('Error fetching friends:', error);
-    }
-  };
-
-  const fetchNuclearFact = async () => {
-    try {
-      const response = await fetch('/api/nuclearFact');
-      if (response.ok) {
-        const data = await response.json();
-        setNuclearFact(data.fact);
-      }
-    } catch (error) {
-      console.error('Error fetching nuclear fact:', error);
     }
   };
 
@@ -120,18 +106,6 @@ export function Friends() {
         
         {message && <p className="message">{message}</p>}
       </div>
-
-      {nuclearFact && (
-        <div className="nuclear-fact" style={{ 
-          marginTop: '20px', 
-          padding: '15px', 
-          backgroundColor: '#222', 
-          borderRadius: '8px' 
-        }}>
-          <h3>Nuclear Fact:</h3>
-          <p>{nuclearFact}</p>
-        </div>
-      )}
     </main>
   );
 }

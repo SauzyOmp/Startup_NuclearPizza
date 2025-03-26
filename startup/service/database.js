@@ -1,7 +1,8 @@
 const { MongoClient } = require('mongodb');
 const config = require('./dbConfig.json');
 
-const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+// Updated connection string with required parameters
+const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/?retryWrites=true&w=majority`;
 const client = new MongoClient(url);
 const db = client.db('NuclearPizza');
 const userCollection = db.collection('user');
@@ -11,13 +12,28 @@ const friendCollection = db.collection('friend');
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
   try {
+    // Explicitly connect to the MongoDB client
+    await client.connect();
     await db.command({ ping: 1 });
-    console.log(`Connected to database`);
+    console.log(`Connected to database at ${config.hostname}`);
   } catch (ex) {
     console.log(`Unable to connect to database with ${url} because ${ex.message}`);
+    console.error('Full error details:', ex);
     process.exit(1);
   }
 })();
+
+// Add a graceful shutdown handler
+process.on('SIGINT', async () => {
+  try {
+    await client.close();
+    console.log('MongoDB connection closed');
+    process.exit(0);
+  } catch (err) {
+    console.error('Error closing MongoDB connection:', err);
+    process.exit(1);
+  }
+});
 
 function getUser(username) {
   return userCollection.findOne({ username: username });
@@ -49,8 +65,7 @@ function getHighScores() {
   return cursor.toArray();
 }
 
-// New functions for friends functionality
-
+// Functions for friends functionality
 async function getFriends(username) {
   const cursor = friendCollection.find({ owner: username });
   return cursor.toArray();
