@@ -52,7 +52,14 @@ async function updateUser(user) {
 }
 
 async function addScore(score) {
-  return scoreCollection.insertOne(score);
+  // Make sure it has all required fields
+  const scoreDoc = {
+    username: score.username,
+    score: score.score,
+    timestamp: score.timestamp || new Date()
+  };
+  
+  return scoreCollection.insertOne(scoreDoc);
 }
 
 function getHighScores() {
@@ -80,6 +87,33 @@ async function addFriend(username, friend) {
   return friendCollection.insertOne(friendDoc);
 }
 
+// New function to get scores from friends
+async function getFriendScores(username) {
+  const friends = await getFriends(username);
+  const friendUsernames = friends.map(friend => friend.username);
+  
+  // Get the latest scores for each friend
+  const cursor = scoreCollection.aggregate([
+    { $match: { username: { $in: friendUsernames } } },
+    { $sort: { timestamp: -1 } },
+    { $group: {
+        _id: "$username",
+        score: { $first: "$score" },
+        timestamp: { $first: "$timestamp" }
+      }
+    },
+    { $project: {
+        _id: 0,
+        username: "$_id",
+        score: 1,
+        timestamp: 1
+      }
+    }
+  ]);
+  
+  return cursor.toArray();
+}
+
 module.exports = {
   getUser,
   getUserByToken,
@@ -88,5 +122,6 @@ module.exports = {
   addScore,
   getHighScores,
   getFriends,
-  addFriend
+  addFriend,
+  getFriendScores
 };
