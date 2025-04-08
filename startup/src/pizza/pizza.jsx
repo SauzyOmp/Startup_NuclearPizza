@@ -11,119 +11,127 @@ import {
 } from '@vis.gl/react-google-maps';
 
 const bombData = [
-  { 
-    name: "Little Boy", 
-    image: "little-boy.jpg", 
-    description: "A uranium-based bomb dropped on Hiroshima in 1945.",
-    radii: [50000, 80000, 120000] 
-  },
-  { 
-    name: "Fat Man", 
-    image: "fat-man.jpg", 
-    description: "A plutonium-based bomb dropped on Nagasaki in 1945.",
-    radii: [60000, 100000, 150000]
-  },
-  { 
-    name: "Tsar Bomba", 
-    image: "tsar-bomba.jpg", 
-    description: "The largest nuclear bomb ever detonated, tested by the Soviet Union in 1961.",
-    radii: [250000, 500000, 800000] 
-  },
-  { 
-    name: "Castle Bravo", 
-    image: "castle-bravo.png", 
-    description: "A powerful hydrogen bomb test by the U.S. in 1954, causing unexpected fallout.",
-    radii: [150000, 300000, 450000] 
-  },
-  { 
-    name: "Ivy Mike", 
-    image: "ivy-mike.jpg", 
-    description: "The first full-scale hydrogen bomb test by the U.S. in 1952.",
-    radii: [100000, 200000, 300000] 
-  }
+  // ... your existing bomb data
 ];
 
-// This component handles the circles drawing
-function CircleDrawer({ selectedBomb }) {
-  const map = useMap();
-  const [circles, setCircles] = useState([]);
-  const circlesRef = useRef([]);
-  const clickListenerRef = useRef(null);
-  const mapsLibrary = useMapsLibrary('maps');
-
+// Score submission component with direct WebSocket usage
+function ScoreSubmission({ username }) {
+  const [score, setScore] = useState(75);
+  const [submitting, setSubmitting] = useState(false);
+  const [message, setMessage] = useState('');
+  const [socket, setSocket] = useState(null);
+  
+  // Initialize WebSocket
   useEffect(() => {
-    if (!map || !mapsLibrary) return;
-
-    if (clickListenerRef.current) {
-      window.google.maps.event.removeListener(clickListenerRef.current);
-      clickListenerRef.current = null;
-    }
-
-
-    clickListenerRef.current = window.google.maps.event.addListener(map, 'click', (event) => {
-      const clickedLocation = { 
-        lat: event.latLng.lat(), 
-        lng: event.latLng.lng() 
-      };
-      
-      console.log("Clicked location:", clickedLocation);
-      
-      const radii = selectedBomb !== null 
-        ? bombData[selectedBomb].radii 
-        : [100000, 200000, 300000]; 
-      
-      const newCircles = radii.map(radius => ({
-        center: clickedLocation,
-        radius,
-      }));
-      
-      setCircles(newCircles);
-    });
-
+    // Create WebSocket connection
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${wsProtocol}//${window.location.host}`;
+    const ws = new WebSocket(wsUrl);
+    
+    ws.onopen = () => {
+      console.log('WebSocket connection established');
+      setSocket(ws);
+    };
+    
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+    
+    ws.onclose = () => {
+      console.log('WebSocket connection closed');
+    };
+    
+    // Clean up on unmount
     return () => {
-      if (clickListenerRef.current) {
-        window.google.maps.event.removeListener(clickListenerRef.current);
+      if (ws) {
+        ws.close();
       }
     };
-  }, [map, mapsLibrary, selectedBomb]);
+  }, []);
 
-  useEffect(() => {
-    if (!map || !mapsLibrary || circles.length === 0) return;
+  // Submit pizza score
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setMessage('');
 
-    circlesRef.current.forEach(circle => circle.setMap(null));
-    circlesRef.current = [];
-
-    circles.forEach(circleData => {
-      const circle = new window.google.maps.Circle({
-        strokeColor: "#FF0000",
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: "#FF0000",
-        fillOpacity: 0.35,
-        map: map,
-        center: circleData.center,
-        radius: circleData.radius,
+    try {
+      // Submit score to the server
+      const response = await fetch('/api/score', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ score }),
       });
-      
-      circlesRef.current.push(circle);
-    });
-  }, [circles, map, mapsLibrary]);
 
-  return null;
+      if (response.ok) {
+        // Also send via WebSocket if connected
+        if (socket && socket.readyState === WebSocket.OPEN) {
+          socket.send(JSON.stringify({
+            type: 'scoreUpdate',
+            username,
+            score
+          }));
+        }
+
+        setMessage('Your pizza score has been submitted!');
+      } else {
+        setMessage('Failed to submit score. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting score:', error);
+      setMessage('An error occurred. Please try again later.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="score-submission-container">
+      <h3>Rate Your Nuclear Pizza Experience</h3>
+      
+      <form onSubmit={handleSubmit}>
+        <div className="score-slider">
+          <label>Your Score: {score}</label>
+          <input
+            type="range"
+            min="1"
+            max="100"
+            value={score}
+            onChange={(e) => setScore(parseInt(e.target.value, 10))}
+          />
+          <div className="score-labels">
+            <span>Meltdown</span>
+            <span>Radioactive</span>
+            <span>Nuclear!</span>
+          </div>
+        </div>
+        
+        <button 
+          type="submit"
+          disabled={submitting}
+          className="score-submit-btn"
+        >
+          {submitting ? 'Submitting...' : 'Submit Score'}
+        </button>
+        
+        {message && <p className="score-message">{message}</p>}
+      </form>
+    </div>
+  );
 }
 
-export function Pizza() {
+// Your existing CircleDrawer component
+function CircleDrawer({ selectedBomb }) {
+  // ... existing code
+}
+
+export function Pizza({ username }) {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [selectedBomb, setSelectedBomb] = useState(null);
 
-  const toggleDropdown = (index) => {
-    setOpenDropdown(openDropdown === index ? null : index);
-  };
-
-  const selectBomb = (index) => {
-    setSelectedBomb(index);
-    console.log(`Selected bomb: ${bombData[index].name}`);
-  };
+  // ... existing functions
 
   return (
     <div className="pizza-page">
@@ -144,6 +152,9 @@ export function Pizza() {
             )}
           </div>
         ))}
+        
+        {/* Add ScoreSubmission component */}
+        <ScoreSubmission username={username} />
       </aside>
       <div className="map-container">
         <APIProvider apiKey={googleMapsApiKey}>
@@ -157,6 +168,71 @@ export function Pizza() {
           </GoogleMap>
         </APIProvider>
       </div>
+      
+      {/* Add CSS for score submission */}
+      <style jsx>{`
+        .score-submission-container {
+          margin-top: 30px;
+          background-color: #333;
+          padding: 15px;
+          border-radius: 8px;
+        }
+        
+        .score-submission-container h3 {
+          margin-top: 0;
+          font-size: 18px;
+          color: #fff;
+          text-align: center;
+        }
+        
+        .score-slider {
+          margin: 15px 0;
+        }
+        
+        .score-slider label {
+          display: block;
+          margin-bottom: 10px;
+          font-weight: bold;
+        }
+        
+        input[type="range"] {
+          width: 100%;
+          margin-bottom: 8px;
+        }
+        
+        .score-labels {
+          display: flex;
+          justify-content: space-between;
+          color: #ccc;
+          font-size: 12px;
+        }
+        
+        .score-submit-btn {
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          padding: 8px 15px;
+          cursor: pointer;
+          width: 100%;
+          transition: background-color 0.3s;
+        }
+        
+        .score-submit-btn:hover {
+          background-color: #0056b3;
+        }
+        
+        .score-submit-btn:disabled {
+          background-color: #666;
+          cursor: not-allowed;
+        }
+        
+        .score-message {
+          margin-top: 10px;
+          text-align: center;
+          color: #4caf50;
+        }
+      `}</style>
     </div>
   );
 }
