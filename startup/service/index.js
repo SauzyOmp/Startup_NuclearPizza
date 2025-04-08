@@ -4,6 +4,7 @@ const express = require('express');
 const uuid = require('uuid');
 const app = express();
 const DB = require('./database.js');
+const { peerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
 
@@ -125,6 +126,42 @@ apiRouter.post('/friends/add', verifyAuth, async (req, res) => {
   res.send({ success: true });
 });
 
+// NEW: Get friends' real-time scores
+apiRouter.get('/friends/scores', verifyAuth, async (req, res) => {
+  const user = await findUser('token', req.cookies[authCookieName]);
+  const friendScores = await DB.getFriendScores(user.username);
+  
+  res.send(friendScores);
+});
+
+// NEW: Submit a pizza score
+apiRouter.post('/score', verifyAuth, async (req, res) => {
+  try {
+    const user = await findUser('token', req.cookies[authCookieName]);
+    
+    const score = {
+      username: user.username,
+      score: req.body.score,
+      timestamp: new Date()
+    };
+    
+    // Save the score to the database
+    await DB.addScore(score);
+    
+    // Get the user's friends to notify them about the score
+    const friends = await DB.getFriends(user.username);
+    const friendUsernames = friends.map(friend => friend.username);
+    
+    // Broadcast the score update to friends via WebSocket
+    peers.broadcastScoreUpdate(user.username, req.body.score, friendUsernames);
+    
+    res.send({ success: true, score });
+  } catch (error) {
+    console.error('Error submitting score:', error);
+    res.status(500).send({ msg: 'Failed to submit score' });
+  }
+});
+
 // Default error handler
 app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });
@@ -171,3 +208,6 @@ function setAuthCookie(res, authToken) {
 const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+// Initialize the WebSocket server
+const peers = peerProxy(httpService);
