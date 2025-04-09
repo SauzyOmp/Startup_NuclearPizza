@@ -56,13 +56,22 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Frontend calls service endpoints** - All mocked functionality removed from the frontend and replaced with calls to the service.
 - [x] **Supports registration, login, logout, and restricted endpoint** - Fully support authentication and restrict access to friends.
 
-
 ## 🚀 DB/Login deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [x] **Stores data in MongoDB** - friends stored in MongoDB from `service/database.js`.
 - [x] **Stores credentials in MongoDB** - Auth stored in MongoDB from `service/database.js`.
+
+## 🚀 WebSocket deliverable
+
+For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+
+- [x] **Backend WebSocket management** - Executed in peerProxy.js
+- [x] **Frontend WebSocket connection** - Directly managed in component files like pizza.jsx
+- [x] **Data sent over WebSocket** connection - JSON with type, username, and score
+- [x] **WebSocket data displayed** - Game notifications displayed directly in component
+- [x] **Application is fully functional**
 
 ### Elevator Pitch  
 
