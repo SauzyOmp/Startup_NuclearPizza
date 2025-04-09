@@ -1,119 +1,78 @@
 const { WebSocketServer } = require('ws');
 
 function peerProxy(httpServer) {
-  // Create a websocket object
+  // Create a websocket server
   const socketServer = new WebSocketServer({ server: httpServer });
   
-  // Store active connections by username
-  const connections = new Map();
+  // Track username to socket mapping
+  const userConnections = new Map();
 
   socketServer.on('connection', (socket) => {
     socket.isAlive = true;
-    console.log('WebSocket connection established');
+    let username = null;
 
     // Handle messages from clients
     socket.on('message', function message(data) {
       try {
-        const parsedData = JSON.parse(data);
+        const message = JSON.parse(data);
         
-        // If it's a registration message, store the username-socket association
-        if (parsedData.type === 'register' && parsedData.username) {
-          connections.set(parsedData.username, socket);
-          console.log(`User ${parsedData.username} registered for WebSocket updates`);
-          
-          // Send confirmation back to the client
-          socket.send(JSON.stringify({ 
-            type: 'registration', 
-            success: true 
-          }));
+        // If this is a registration message, store the username-socket mapping
+        if (message.type === 'register' && message.username) {
+          username = message.username;
+          userConnections.set(username, socket);
+          console.log(`User registered: ${username}`);
           return;
         }
         
-        // For score updates, only send to relevant friends
-        if (parsedData.type === 'scoreUpdate') {
-          const { username, score, friends } = parsedData;
-          
-          if (friends && Array.isArray(friends)) {
-            // Create notification message
-            const notification = JSON.stringify({
-              type: 'friendScoreUpdate',
-              username: username,
-              score: score,
-              timestamp: new Date().toISOString()
-            });
-            
-            // Send to each friend that is connected
-            friends.forEach(friendName => {
-              const friendSocket = connections.get(friendName);
-              if (friendSocket && friendSocket.readyState === WebSocketServer.OPEN) {
-                friendSocket.send(notification);
-              }
-            });
-          }
-          return;
+        // Handle score updates
+        if (message.type === 'scoreUpdate') {
+          const { username, score } = message;
+          console.log(`Score update from ${username}: ${score}`);
         }
-        
-        // For any other message types, broadcast to all (like the original example)
+
+        // Broadcast message to all clients except sender
         socketServer.clients.forEach((client) => {
           if (client !== socket && client.readyState === WebSocketServer.OPEN) {
             client.send(data);
           }
         });
       } catch (error) {
-        console.error('Error processing WebSocket message:', error);
+        console.error('Error processing message:', error);
       }
     });
 
-    // Respond to pong messages by marking the connection alive
+    // Handle pings to keep connection alive
     socket.on('pong', () => {
       socket.isAlive = true;
     });
     
-    // Handle disconnection
+    // Handle disconnections
     socket.on('close', () => {
-      // Remove this connection from our map
-      for (const [username, conn] of connections.entries()) {
-        if (conn === socket) {
-          connections.delete(username);
-          console.log(`User ${username} disconnected`);
-          break;
-        }
+      if (username) {
+        userConnections.delete(username);
+        console.log(`User disconnected: ${username}`);
       }
     });
   });
 
-  // Periodically send out a ping message to make sure clients are alive
-  setInterval(() => {
-    socketServer.clients.forEach(function each(client) {
-      if (client.isAlive === false) return client.terminate();
-
-      client.isAlive = false;
-      client.ping();
+  // Ping clients periodically to check if they're still connected
+  const interval = setInterval(() => {
+    socketServer.clients.forEach((socket) => {
+      if (socket.isAlive === false) {
+        return socket.terminate();
+      }
+      
+      socket.isAlive = false;
+      socket.ping();
     });
   }, 10000);
   
-  // Provide methods for other parts of the application to use
-  function broadcastScoreUpdate(username, score, friendsList) {
-    if (!friendsList || !Array.isArray(friendsList)) return;
-    
-    const notification = JSON.stringify({
-      type: 'friendScoreUpdate',
-      username: username,
-      score: score,
-      timestamp: new Date().toISOString()
-    });
-    
-    friendsList.forEach(friendName => {
-      const friendSocket = connections.get(friendName);
-      if (friendSocket && friendSocket.readyState === WebSocketServer.OPEN) {
-        friendSocket.send(notification);
-      }
-    });
-  }
-  
-  return {
-    broadcastScoreUpdate
-  };
+  // Clean up interval on server close
+  socketServer.on('close', () => {
+    clearInterval(interval);
+  });
+
+  return socketServer;
 }
 
 module.exports = { peerProxy };

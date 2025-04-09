@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './friends.css';
 
 export function Friends({ username }) {
-  const [friendsVisible, setFriendsVisible] = useState(false);
   const [friendCode, setFriendCode] = useState('');
   const [friends, setFriends] = useState([]);
   const [message, setMessage] = useState('');
@@ -11,8 +10,6 @@ export function Friends({ username }) {
 
   // Initialize WebSocket and fetch friends on component mount
   useEffect(() => {
-    fetchFriends();
-    
     // Create WebSocket connection
     const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const wsUrl = `${wsProtocol}//${window.location.host}`;
@@ -79,30 +76,6 @@ export function Friends({ username }) {
     };
   }, []);
 
-  // Update friend notifications when friends list changes
-  useEffect(() => {
-    // This effect is needed to correctly filter notifications
-    // when the friends list changes
-  }, [friends]);
-
-  const fetchFriends = async () => {
-    try {
-      const response = await fetch('/api/friends');
-      if (response.ok) {
-        const data = await response.json();
-        setFriends(data);
-        if (data.length > 0) {
-          setFriendsVisible(true);
-        }
-      } else if (response.status !== 401) {
-        // 401 is expected if not logged in yet
-        setMessage('Failed to fetch friends list');
-      }
-    } catch (error) {
-      console.error('Error fetching friends:', error);
-    }
-  };
-
   const handleCodeChange = (e) => {
     setFriendCode(e.target.value);
   };
@@ -129,10 +102,25 @@ export function Friends({ username }) {
       });
 
       if (response.ok) {
-        setMessage('Friend code validated!');
-        setFriendsVisible(true);
-        // Refresh friends list
-        fetchFriends();
+        const newFriend = await response.json();
+        
+        // Fetch updated friends list with scores
+        const scoresResponse = await fetch('/api/friends/scores');
+        if (scoresResponse.ok) {
+          const friendScores = await scoresResponse.json();
+          
+          // Combine friend info with their latest scores
+          const updatedFriends = friendScores.map(score => ({
+            username: score.username,
+            score: score.score
+          }));
+          
+          setFriends(updatedFriends);
+          setMessage('Friend added successfully!');
+          setFriendCode('');
+        } else {
+          setMessage('Friend added, but could not retrieve scores');
+        }
       } else {
         const data = await response.json();
         setMessage(data.msg || 'Failed to add friend');
@@ -171,19 +159,19 @@ export function Friends({ username }) {
         ))}
       </div>
       
-      {friendsVisible ? (
+      {friends.length > 0 ? (
         <div className="friends-list">
           <ol>
             {friends.map((friend, index) => (
               <li key={index}>
-                {friend.username} - Score: {friend.score}
+                {friend.username} - Best Score: {friend.score}
               </li>
             ))}
           </ol>
         </div>
       ) : (
         <div className="friends-hidden">
-          <p>Enter your friend code to view your friends list</p>
+          <p>Enter a friend code to add friends</p>
         </div>
       )}
       
@@ -198,13 +186,13 @@ export function Friends({ username }) {
           placeholder="xxxx"
         />
         <button id="addFriendButton" onClick={handleAddFriend}>
-          Validate Friend Code
+          Add Friend
         </button>
         
         {message && <p className="message">{message}</p>}
       </div>
       
-      {/* Add CSS for notifications */}
+      {/* Notification CSS (kept from previous version) */}
       <style jsx>{`
         .notifications-container {
           position: fixed;

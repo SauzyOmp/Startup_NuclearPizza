@@ -134,7 +134,7 @@ apiRouter.get('/friends/scores', verifyAuth, async (req, res) => {
   res.send(friendScores);
 });
 
-// NEW: Submit a pizza score
+// Score submission route
 apiRouter.post('/score', verifyAuth, async (req, res) => {
   try {
     const user = await findUser('token', req.cookies[authCookieName]);
@@ -148,13 +148,7 @@ apiRouter.post('/score', verifyAuth, async (req, res) => {
     // Save the score to the database
     await DB.addScore(score);
     
-    // Get the user's friends to notify them about the score
-    const friends = await DB.getFriends(user.username);
-    const friendUsernames = friends.map(friend => friend.username);
-    
-    // Broadcast the score update to friends via WebSocket
-    peers.broadcastScoreUpdate(user.username, req.body.score, friendUsernames);
-    
+    // Send a successful response
     res.send({ success: true, score });
   } catch (error) {
     console.error('Error submitting score:', error);
